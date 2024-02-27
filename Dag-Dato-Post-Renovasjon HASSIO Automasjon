@@ -21,6 +21,8 @@ action:
               or states.sensor.matavfall.attributes.days_to_pickup == 0 }}
         sequence:
           - service: open_epaper_link.drawcustom
+            target:
+              entity_id: open_epaper_link.0000021A4B5C3B16          
             data:
               background: white
               rotate: 0
@@ -80,8 +82,6 @@ action:
                   color: >
                     {% if states.binary_sensor.posten_binary_sensor.state ==
                     'on' %} red {% else %} white {% endif %}
-            target:
-              entity_id: open_epaper_link.0000021ea5933b11
         alias: If Today
       - conditions:
           - condition: template
@@ -98,6 +98,8 @@ action:
               or states.sensor.matavfall.attributes.days_to_pickup == 1 }}
         sequence:
           - service: open_epaper_link.drawcustom
+            target:
+              entity_id: open_epaper_link.0000021A4B5C3B16
             data:
               background: white
               rotate: 0
@@ -157,8 +159,6 @@ action:
                   color: >
                     {% if states.binary_sensor.posten_binary_sensor.state ==
                     'on' %} red {% else %} white {% endif %}
-            target:
-              entity_id: open_epaper_link.0000021ea5933b11
         alias: If Tomorrow
       - conditions:
           - condition: not
@@ -178,6 +178,8 @@ action:
                   or states.sensor.matavfall.attributes.days_to_pickup == 1 }}
         sequence:
           - service: open_epaper_link.drawcustom
+            target:
+              entity_id: open_epaper_link.0000021A4B5C3B16          
             data:
               background: white
               rotate: 0
@@ -213,7 +215,6 @@ action:
                   color: >
                     {% if states.binary_sensor.posten_binary_sensor.state ==
                     'on' %} red {% else %} white {% endif %}
-            target:
-              entity_id: open_epaper_link.0000021ea5933b11
         alias: Show Just Date
 mode: restart
+
