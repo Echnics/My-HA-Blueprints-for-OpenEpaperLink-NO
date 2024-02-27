@@ -16,7 +16,7 @@ action:
 
               or states.sensor.plast.attributes.days_to_pickup == 0
 
-              or states.sensor.glass_metallemballasje.attributes.days_to_pickup
+              or states.sensor.glass_metallembalasje.attributes.days_to_pickup
               == 0
 
               or states.sensor.matavfall.attributes.days_to_pickup == 0 }}
@@ -40,7 +40,7 @@ action:
                     states.sensor.plast.attributes.days_to_pickup==0 %} {% set
                     msg = msg + delim + "Plast" %} {% set delim = ", " %} {%
                     endif %}  {% if
-                    states.sensor.glass_metallemballasje.attributes.days_to_pickup==0
+                    states.sensor.glass_metallembalasje.attributes.days_to_pickup==0
                     %} {% set msg = msg + delim + "Glass-Metall" %} {% set delim
                     = ", " %} {% endif %} {% if
                     states.sensor.matavfall.attributes.days_to_pickup==0 %} {%
@@ -65,7 +65,7 @@ action:
                 - type: text
                   value: >
                     {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktoboer",
+                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
                     "November", "Desember"] %} {% set month =
                     months[now().strftime('%m') | int -1] %}   {{
                     now().strftime('%d') + ' ' + month  }}
@@ -93,7 +93,7 @@ action:
 
               or states.sensor.plast.attributes.days_to_pickup == 1
 
-              or states.sensor.glass_metallemballasje.attributes.days_to_pickup
+              or states.sensor.glass_metallembalasje.attributes.days_to_pickup
               == 1
 
               or states.sensor.matavfall.attributes.days_to_pickup == 1 }}
@@ -117,7 +117,7 @@ action:
                     states.sensor.plast.attributes.days_to_pickup==1 %} {% set
                     msg = msg + delim + "Plast" %} {% set delim = ", " %} {%
                     endif %}  {% if
-                    states.sensor.glass_metallemballasje.attributes.days_to_pickup==1
+                    states.sensor.glass_metallembalasje.attributes.days_to_pickup==1
                     %} {% set msg = msg + delim + "Glass-Metall" %} {% set delim
                     = ", " %} {% endif %} {% if
                     states.sensor.matavfall.attributes.days_to_pickup==1 %} {%
@@ -142,7 +142,7 @@ action:
                 - type: text
                   value: >
                     {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktoboer",
+                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
                     "November", "Desember"] %} {% set month =
                     months[now().strftime('%m') | int -1] %}   {{
                     now().strftime('%d') + ' ' + month  }}
@@ -173,7 +173,7 @@ action:
                   or states.sensor.plast.attributes.days_to_pickup == 1
 
                   or
-                  states.sensor.glass_metallemballasje.attributes.days_to_pickup
+                  states.sensor.glass_metallembalasje.attributes.days_to_pickup
                   == 1
 
                   or states.sensor.matavfall.attributes.days_to_pickup == 1 }}
@@ -198,7 +198,7 @@ action:
                 - type: text
                   value: >
                     {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktoboer",
+                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
                     "November", "Desember"] %} {% set month =
                     months[now().strftime('%m') | int -1] %}   {{
                     now().strftime('%d') + ' ' + month  }}
