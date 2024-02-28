@@ -1,287 +1,264 @@
 blueprint:
   name: OpenEPaperLink - Dag-Dato, Posten og Renovasjon
-  description: "# OpenEPaperLink - Dag-Dato, Post og Renovasjon\n**Version: 1.0**\n\n - Denne automasjonen kjører hver dag kl 00:00:01\n\n Håper du liker dette blueprintet  \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
+  description: "# OpenEPaperLink - Dag-Dato, Post og Renovasjon\n**Version: 1.0**\n\n
+    - Denne automasjonen kjører hver dag kl 00:00:01\n\n - Husk å sjekke at default valgte entiter er valgt!!!\n\n Håper du liker dette blueprintet
+    \ \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
   domain: automation
-  source_url: https://github.com/Echnics/My-OpenEpaperLink-NO-/blob/52aeb4d733cd7f2302f611040f864d0f9970f1d7/openepaperlink_dag_renovasjon_post.yaml
-  input:   
+  source_url: https://github.com/Echnics/My-OpenEpaperLink-NO-/blob/main/openepaperlink_dag_renovasjon_post.yaml
+  input:
     tag_target:
       name: OpenEpaperLink Tag
       description: Target OpenEpaperLink Tag
       selector:
         entity:
-          domain: open_epaper_link
+          domain:
+          - open_epaper_link
           multiple: true
     restavfall:
       name: Restavfall
       description: Velg din Restavfall Sensor her.
+      default: sensor.restavfall
       selector:
         entity:
           integration: min_renovasjon
-          domain: sensor
+          domain:
+          - sensor
           multiple: false
     plastavfall:
       name: Plastavfall
       description: Velg din Plastavfall sensor her.
+      default: sensor.plast
       selector:
         entity:
           integration: min_renovasjon
-          domain: sensor
+          domain:
+          - sensor
           multiple: false
     matavfall:
       name: Matavfall
       description: Velg din Matavfall sensor her.
+      default: sensor.matavfall
       selector:
         entity:
           integration: min_renovasjon
-          domain: sensor
+          domain:
+          - sensor
           multiple: false
     papiravfall:
       name: Papiravfall
       description: Velg din Papiravfall sensor her.
+      default: sensor.papir
       selector:
         entity:
           integration: min_renovasjon
-          domain: sensor
+          domain:
+          - sensor
           multiple: false
     glass_metall:
       name: Glass/Metall
-      description: Velg din Glass/Metall sensor her
+      description: Velg din Glass/Metall sensor her.
+      default: sensor.glass_metallembalasje
       selector:
         entity:
           integration: min_renovasjon
-          domain: sensor
+          domain:
+          - sensor
           multiple: false
     posten:
       name: Posten
-      description: Velg din posten binary sensor her
+      description: Velg din posten binary sensor her.
+      default: binary_sensor.posten_binary_sensor
       selector:
         entity:
           integration: posten
-          domain: binary_sensor
+          domain:
+          - binary_sensor
           multiple: false
 mode: restart
-
-# Variables
 variables:
   posten_entity: !input posten
-  posten_state: "{{ states[posten_entity].state }}"
-
+  posten_state: '{{ states[posten_entity].state }}'
   restavfall_entity: !input restavfall
-  restavfall_state: "{{ states[restavfall_entity].attributes.days_to_pickup }}"
-
+  restavfall_state: '{{ states[restavfall_entity].attributes.days_to_pickup }}'
   plastavfall_entity: !input plastavfall
-  plastavfall_state: "{{ states[plastavfall_entity].attributes.days_to_pickup }}"
-
+  plastavfall_state: '{{ states[plastavfall_entity].attributes.days_to_pickup }}'
   matavfall_entity: !input matavfall
-  matavfall_state: "{{ states[matavfall_entity].attributes.days_to_pickup }}"
-
+  matavfall_state: '{{ states[matavfall_entity].attributes.days_to_pickup }}'
   papiravfall_entity: !input papiravfall
-  papiravfall_state: "{{ states[papiravfall_entity].attributes.days_to_pickup }}"
-
+  papiravfall_state: '{{ states[papiravfall_entity].attributes.days_to_pickup }}'
   glass_metall_entity: !input glass_metall
-  glass_metall_state: "{{ states[glass_metall_entity].attributes.days_to_pickup }}"
-
-# Trigger Section
+  glass_metall_state: '{{ states[glass_metall_entity].attributes.days_to_pickup }}'
 trigger:
-  - platform: time
-    at: "00:00:01"
-
-# Action Section
+- platform: time
+  at: 00:00:01
 action:
-  - choose:
-      - conditions:
-          - condition: template
-            value_template: >-
-              {{ restavfall_state == 0
-              or papiravfall_state == 0
-              or plastavfall_state == 0
-              or glass_metall_state == 0
-              or matavfall_state == 0 }}
-        sequence:
-          - service: open_epaper_link.drawcustom
-            target:
-              entity_id: !input tag_target
-            data:
-              background: white
-              rotate: 0
-              payload:
-                - type: text
-                  value: >
-                    {% set msg = "I dag" %} {% set delim = ": "%} 
-                    {% if restavfall_state == 0 %}
-                    {% set msg = msg + delim + "Restavfall" %} {% set delim = ", " %} 
-                    {% endif %}
-                    {% if papiravfall_state == 0 %} 
-                    {% set msg = msg + delim + "Papir" %} {% set delim = ", " %} 
-                    {% endif %}  
-                    {% if plastavfall_state == 0 %} 
-                    {% set msg = msg + delim + "Plast" %} {% set delim = ", " %}
-                    {% endif %}
-                    {% if glass_metall_state == 0 %}
-                    {% set msg = msg + delim + "Glass-Metall" %} {% set delim = ", " %}
-                    {% endif %}
-                    {% if matavfall_state == 0 %}
-                    {% set msg = msg + delim + "Matavfall" %}
-                    {% set delim = ", " %}
-                    {% endif %} {{ msg }}    
-                  font: ppb.ttf
-                  x: 148
-                  "y": 112
-                  size: 18
-                  anchor: mm
-                  color: black
-                - type: text
-                  value: >
-                    {% set days = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag',
-                    'Fredag', 'Lørdag', 'Søndag'] %} {{ days[now().weekday()] }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 22
-                  size: 45
-                  color: red
-                  anchor: mm
-                - type: text
-                  value: >
-                    {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
-                    "November", "Desember"] %} {% set month =
-                    months[now().strftime('%m') | int -1] %}   {{
-                    now().strftime('%d') + ' ' + month  }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 70
-                  size: 45
-                  color: black
-                  anchor: mm
-                - type: icon
-                  value: email-fast-outline
-                  x: 5
-                  "y": 5
-                  size: 40
-                  color: >
-                    {% if posten_state == 'on' %} red 
-                    {% else %} white {% endif %}
-        alias: If Today
-      - conditions:
-          - condition: template
-            value_template: >-
-              {{ restavfall_state == 1
-              or papiravfall_state == 1
-              or plastavfall_state == 1
-              or glass_metall_state == 1
-              or matavfall_state == 1 }}
-        sequence:
-          - service: open_epaper_link.drawcustom
-            target:
-              entity_id: !input tag_target
-            data:
-              background: white
-              rotate: 0
-              payload:
-                - type: text
-                  value: >
-                    {% set msg = "I morgen" %} {% set delim = ": "%} 
-                    {% if restavfall_state == 1 %}
-                    {% set msg = msg + delim + "Restavfall" %} {% set delim = ", " %} 
-                    {% endif %}
-                    {% if papiravfall_state == 1 %} 
-                    {% set msg = msg + delim + "Papir" %} {% set delim = ", " %} 
-                    {% endif %}  
-                    {% if plastavfall_state == 1 %} 
-                    {% set msg = msg + delim + "Plast" %} {% set delim = ", " %}
-                    {% endif %}
-                    {% if glass_metall_state == 1 %}
-                    {% set msg = msg + delim + "Glass-Metall" %} {% set delim = ", " %}
-                    {% endif %}
-                    {% if matavfall_state == 1 %}
-                    {% set msg = msg + delim + "Matavfall" %}
-                    {% set delim = ", " %}
-                    {% endif %} {{ msg }}    
-                  font: ppb.ttf
-                  x: 148
-                  "y": 112
-                  size: 18
-                  anchor: mm
-                  color: black
-                - type: text
-                  value: >
-                    {% set days = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag',
-                    'Fredag', 'Lørdag', 'Søndag'] %} {{ days[now().weekday()] }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 22
-                  size: 45
-                  color: red
-                  anchor: mm
-                - type: text
-                  value: >
-                    {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
-                    "November", "Desember"] %} {% set month =
-                    months[now().strftime('%m') | int -1] %}   {{
-                    now().strftime('%d') + ' ' + month  }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 70
-                  size: 45
-                  color: black
-                  anchor: mm
-                - type: icon
-                  value: email-fast-outline
-                  x: 5
-                  "y": 5
-                  size: 40
-                  color: >
-                    {% if posten_state == 'on' %} red 
-                    {% else %} white {% endif %}
-        alias: If Tomorrow
-      - conditions:
-          - condition: not
-            conditions:
-              - condition: template
-                value_template: >-
-                 {{ restavfall_state == 1
-                 or papiravfall_state == 1
-                 or plastavfall_state == 1
-                 or glass_metall_state == 1
-                 or matavfall_state == 1 }}
-        sequence:
-          - service: open_epaper_link.drawcustom
-            target:
-              entity_id: !input tag_target
-            data:
-              background: white
-              rotate: 0
-              payload:
-                - type: text
-                  value: >
-                    {% set days = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag',
-                    'Fredag', 'Lørdag', 'Søndag'] %} {{ days[now().weekday()] }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 25
-                  size: 45
-                  color: red
-                  anchor: mm
-                - type: text
-                  value: >
-                    {% set months = ["Januar", "Februar", "Mars", "April",
-                    "Mai", "Juni", "Juli", "August", "September", "Oktober",
-                    "November", "Desember"] %} {% set month =
-                    months[now().strftime('%m') | int -1] %}   {{
-                    now().strftime('%d') + ' ' + month  }}
-                  font: ppb.ttf
-                  x: 148
-                  "y": 80
-                  size: 45
-                  color: black
-                  anchor: mm
-                - type: icon
-                  value: email-fast-outline
-                  x: 5
-                  "y": 5
-                  size: 40
-                  color: >
-                    {% if posten_state == 'on' %} red 
-                    {% else %} white {% endif %}
-        alias: Show Just Date    
+- choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ restavfall_state == 0 or papiravfall_state == 0 or plastavfall_state
+        == 0 or glass_metall_state == 0 or matavfall_state == 0 }}'
+    sequence:
+    - service: open_epaper_link.drawcustom
+      target:
+        entity_id: !input tag_target
+      data:
+        background: white
+        rotate: 0
+        payload:
+        - type: text
+          value: "{% set msg = \"I dag\" %} {% set delim = \": \"%}  {% if restavfall_state
+            == 0 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
+            \" %}  {% endif %} {% if papiravfall_state == 0 %}  {% set msg = msg +
+            delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
+            == 0 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
+            %} {% endif %} {% if glass_metall_state == 0 %} {% set msg = msg + delim
+            + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
+            == 0 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
+            \" %} {% endif %} {{ msg }}    \n"
+          font: ppb.ttf
+          x: 148
+          y: 112
+          size: 18
+          anchor: mm
+          color: black
+        - type: text
+          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
+            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 22
+          size: 45
+          color: red
+          anchor: mm
+        - type: text
+          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
+            + '' '' + month  }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 70
+          size: 45
+          color: black
+          anchor: mm
+        - type: icon
+          value: email-fast-outline
+          x: 5
+          y: 5
+          size: 40
+          color: '{% if posten_state == ''on'' %} red  {% else %} white {% endif %}
+
+            '
+    alias: If Today
+  - conditions:
+    - condition: template
+      value_template: '{{ restavfall_state == 1 or papiravfall_state == 1 or plastavfall_state
+        == 1 or glass_metall_state == 1 or matavfall_state == 1 }}'
+    sequence:
+    - service: open_epaper_link.drawcustom
+      target:
+        entity_id: !input tag_target
+      data:
+        background: white
+        rotate: 0
+        payload:
+        - type: text
+          value: "{% set msg = \"I morgen\" %} {% set delim = \": \"%}  {% if restavfall_state
+            == 1 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
+            \" %}  {% endif %} {% if papiravfall_state == 1 %}  {% set msg = msg +
+            delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
+            == 1 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
+            %} {% endif %} {% if glass_metall_state == 1 %} {% set msg = msg + delim
+            + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
+            == 1 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
+            \" %} {% endif %} {{ msg }}    \n"
+          font: ppb.ttf
+          x: 148
+          y: 112
+          size: 18
+          anchor: mm
+          color: black
+        - type: text
+          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
+            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 22
+          size: 45
+          color: red
+          anchor: mm
+        - type: text
+          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
+            + '' '' + month  }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 70
+          size: 45
+          color: black
+          anchor: mm
+        - type: icon
+          value: email-fast-outline
+          x: 5
+          y: 5
+          size: 40
+          color: '{% if posten_state == ''on'' %} red  {% else %} white {% endif %}
+
+            '
+    alias: If Tomorrow
+  - conditions:
+    - condition: not
+      conditions:
+      - condition: template
+        value_template: '{{ restavfall_state == 1 or papiravfall_state == 1 or plastavfall_state
+          == 1 or glass_metall_state == 1 or matavfall_state == 1 }}'
+    sequence:
+    - service: open_epaper_link.drawcustom
+      target:
+        entity_id: !input tag_target
+      data:
+        background: white
+        rotate: 0
+        payload:
+        - type: text
+          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
+            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 25
+          size: 45
+          color: red
+          anchor: mm
+        - type: text
+          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
+            + '' '' + month  }}
+
+            '
+          font: ppb.ttf
+          x: 148
+          y: 80
+          size: 45
+          color: black
+          anchor: mm
+        - type: icon
+          value: email-fast-outline
+          x: 5
+          y: 5
+          size: 40
+          color: '{% if posten_state == ''on'' %} red  {% else %} white {% endif %}
+
+            '
+    alias: Show Just Date
