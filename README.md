@@ -1,4 +1,4 @@
-# Hey.
+# Hey
 
 # Here you can find some of my homeassistant blueprints for showing things on OpenEPaperLink.
 <br>
