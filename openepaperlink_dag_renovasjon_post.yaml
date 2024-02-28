@@ -118,7 +118,7 @@ action:
           font: ppb.ttf
           x: 148
           y: 112
-          size: 18
+          size: 16
           anchor: mm
           color: black
         - type: text
@@ -179,7 +179,7 @@ action:
           font: ppb.ttf
           x: 148
           y: 112
-          size: 18
+          size: 16
           anchor: mm
           color: black
         - type: text
