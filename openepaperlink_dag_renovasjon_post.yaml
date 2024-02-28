@@ -16,7 +16,7 @@ blueprint:
         time: {}  
     tag_target:
       name: OpenEpaperLink Tag
-      description: Target OpenEpaperLink Tag
+      description: Velg ditt OpenEpaperLink Tag
       selector:
         entity:
           domain:
