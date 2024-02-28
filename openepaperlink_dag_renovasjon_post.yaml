@@ -4,7 +4,7 @@ blueprint:
     - Denne automasjonen kjører hver dag kl 01:00:00\n\n - Default entiteter er valgt,skal stemme med integrasjonen hvis du ikke har endret noe.\n Husk å sjekke at default valgte entiter stemmer med dine egne!!!\n\n Håper du liker dette blueprintet
     \ \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
   domain: automation
-  source_url: https://github.com/Echnics/My-OpenEpaperLink-NO-/blob/main/openepaperlink_dag_renovasjon_post.yaml
+  source_url: https://github.com/Echnics/My-HA-Blueprints-for-OpenEpaperLink-NO/blob/main/openepaperlink_dag_renovasjon_post.yaml
   input:
     tag_target:
       name: OpenEpaperLink Tag
