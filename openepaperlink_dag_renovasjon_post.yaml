@@ -1,11 +1,19 @@
 blueprint:
   name: OpenEPaperLink - Dag-Dato, Posten og Renovasjon
   description: "# OpenEPaperLink - Dag-Dato, Post og Renovasjon\n**Version: 1.0**\n\n
-    - Denne automasjonen kjører hver dag kl 01:00:00\n\n - Default entiteter er valgt,skal stemme med integrasjonen hvis du ikke har endret noe.\n Husk å sjekke at default valgte entiter stemmer med dine egne!!!\n\n Håper du liker denne blueprint
-    \ \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
+    - Denne automasjonen kjører hver dag kl 01:00:00\n\n - Default entiteter er valgt,skal
+    stemme med integrasjonen hvis du ikke har endret noe.\n Husk å sjekke at default
+    valgte entiter stemmer med dine egne!!!\n\n Håper du liker denne blueprint  \U0001F642\n\n
+    [Echnics](https://github.com/Echnics)\U0001F642\n"
   domain: automation
   source_url: https://github.com/Echnics/My-HA-Blueprints-for-OpenEpaperLink-NO/blob/main/openepaperlink_dag_renovasjon_post.yaml
   input:
+    time:
+      name: Tid
+      description: Tiden automasjonen skal oppdatere.\n\n Standard er satt til 01:00.
+      default: '01:00:00'
+      selector:
+        time: {}  
     tag_target:
       name: OpenEpaperLink Tag
       description: Target OpenEpaperLink Tag
@@ -90,7 +98,7 @@ variables:
   glass_metall_state: '{{ states[glass_metall_entity].attributes.days_to_pickup }}'
 trigger:
 - platform: time
-  at: 00:00:01
+  at: !input time
 action:
 - choose:
   - conditions:
