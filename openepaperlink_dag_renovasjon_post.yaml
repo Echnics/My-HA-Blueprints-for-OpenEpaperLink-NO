@@ -10,7 +10,7 @@ blueprint:
   input:
     time:
       name: Tid
-      description: Tiden automasjonen skal oppdatere.\n\n Standard er satt til 01:00.
+      description: Tiden automasjonen skal oppdatere. Standard er satt til 01:00.
       default: '01:00:00'
       selector:
         time: {}  
