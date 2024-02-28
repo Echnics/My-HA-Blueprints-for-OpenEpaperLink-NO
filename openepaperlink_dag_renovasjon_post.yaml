@@ -106,7 +106,7 @@ action:
         rotate: 0
         payload:
         - type: text
-          value: "{% set msg = \"I dag\" %} {% set delim = \": \"%}  {% if restavfall_state
+          value: "{% set msg = \"Idag\" %} {% set delim = \": \"%}  {% if restavfall_state
             == 0 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
             \" %}  {% endif %} {% if papiravfall_state == 0 %}  {% set msg = msg +
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
@@ -167,7 +167,7 @@ action:
         rotate: 0
         payload:
         - type: text
-          value: "{% set msg = \"I morgen\" %} {% set delim = \": \"%}  {% if restavfall_state
+          value: "{% set msg = \"Imorgen\" %} {% set delim = \": \"%}  {% if restavfall_state
             == 1 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
             \" %}  {% endif %} {% if papiravfall_state == 1 %}  {% set msg = msg +
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
