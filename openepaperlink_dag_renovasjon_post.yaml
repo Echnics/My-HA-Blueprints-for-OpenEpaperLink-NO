@@ -83,7 +83,7 @@ blueprint:
           - binary_sensor
           multiple: false
     postenicon:
-      name: Posten ikon
+      name: Postenikon
       description: Velg et annet posten ikon.
       default: mdi:email-fast-outline     
       name: Posten
