@@ -1,10 +1,10 @@
 blueprint:
   name: OpenEPaperLink - Dag-Dato, Posten og Renovasjon
-  description: "# OpenEPaperLink - Dag-Dato, Post og Renovasjon\n**For Solum M2 2,9 tags**\n**Version: 1.0**\n\n
-    - Denne automasjonen kjører hver dag kl 01:00:00\n\n - Default entiteter er valgt,skal
-    stemme med integrasjonen hvis du ikke har endret noe.\n Husk å sjekke at default
-    valgte entiter stemmer med dine egne!!!\n\n Håper du liker denne blueprint  \U0001F642\n\n
-    [Echnics](https://github.com/Echnics)\U0001F642\n"
+  description: "# OpenEPaperLink - Dag-Dato, Post og Renovasjon\n**For Solum M2 2,9
+    tags**\n**Version: 1.0**\n\n - Denne automasjonen kjører hver dag kl 01:00:00\n\n
+    - Default entiteter er valgt,skal stemme med integrasjonen hvis du ikke har endret
+    noe.\n Husk å sjekke at default valgte entiter stemmer med dine egne!!!\n\n Håper
+    du liker denne blueprint  \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
   domain: automation
   source_url: https://github.com/Echnics/My-HA-Blueprints-for-OpenEpaperLink-NO/blob/main/openepaperlink_dag_renovasjon_post.yaml
   input:
@@ -85,9 +85,9 @@ blueprint:
     postenicon:
       name: Posten ikon
       description: Velg et annet posten ikon.
-      default: mdi:email-fast-outline     
+      default: mdi:email-fast-outline
       selector:
-        icon: {}                            
+        icon: {}
 mode: restart
 variables:
   posten_entity: !input posten
@@ -102,10 +102,27 @@ variables:
   papiravfall_state: '{{ states[papiravfall_entity].attributes.days_to_pickup }}'
   glass_metall_entity: !input glass_metall
   glass_metall_state: '{{ states[glass_metall_entity].attributes.days_to_pickup }}'
-
-  language_month_no: ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
-            "Juli", "August", "September", "Oktober", "November", "Desember"]
-  language_day_no: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"]
+  language_month_no:
+  - Januar
+  - Februar
+  - Mars
+  - April
+  - Mai
+  - Juni
+  - Juli
+  - August
+  - September
+  - Oktober
+  - November
+  - Desember
+  language_day_no:
+  - Mandag
+  - Tirsdag
+  - Onsdag
+  - Torsdag
+  - Fredag
+  - Lørdag
+  - Søndag
 trigger:
 - platform: time
   at: !input time
@@ -150,9 +167,8 @@ action:
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = language_month_no %} {%
-            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
-            + '' '' + month  }}
+          value: '{% set months = language_month_no %} {% set month = months[now().strftime(''%m'')
+            | int -1] %}   {{ now().strftime(''%d'') + '' '' + month  }}
 
             '
           font: ppb.ttf
@@ -209,9 +225,8 @@ action:
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = language_month_no %} {%
-            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
-            + '' '' + month  }}
+          value: '{% set months = language_month_no %} {% set month = months[now().strftime(''%m'')
+            | int -1] %}   {{ now().strftime(''%d'') + '' '' + month  }}
 
             '
           font: ppb.ttf
@@ -254,9 +269,8 @@ action:
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = language_month_no %} {%
-            set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
-            + '' '' + month  }}
+          value: '{% set months = language_month_no %} {% set month = months[now().strftime(''%m'')
+            | int -1] %}   {{ now().strftime(''%d'') + '' '' + month  }}
 
             '
           font: ppb.ttf
