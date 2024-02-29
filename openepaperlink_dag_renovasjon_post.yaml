@@ -88,7 +88,13 @@ blueprint:
       default: mdi:email-fast-outline     
       name: Posten
       selector:
-        icon: {}                     
+        icon: {}       
+    font_date:
+      name: Skrifttype på dato
+      description: 'Denne skriftypen vil bli brukt på dag og dato.
+
+        '
+      default: ppb.ttf                      
 mode: restart
 variables:
   posten_entity: !input posten
@@ -130,7 +136,7 @@ action:
             + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
             == 0 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 112
           size: 16
@@ -141,7 +147,7 @@ action:
             ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 22
           size: 45
@@ -154,7 +160,7 @@ action:
             + '' '' + month  }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 70
           size: 45
@@ -202,7 +208,7 @@ action:
             ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 22
           size: 45
@@ -215,7 +221,7 @@ action:
             + '' '' + month  }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 70
           size: 45
@@ -249,7 +255,7 @@ action:
             ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 25
           size: 45
@@ -262,7 +268,7 @@ action:
             + '' '' + month  }}
 
             '
-          font: ppb.ttf
+          font: !input font_date
           x: 148
           y: 80
           size: 45
