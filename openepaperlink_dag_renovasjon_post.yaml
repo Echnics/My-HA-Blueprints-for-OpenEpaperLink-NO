@@ -87,15 +87,7 @@ blueprint:
       description: Velg et annet posten ikon.
       default: mdi:email-fast-outline     
       selector:
-        icon: {}       
-    font_date:
-      name: Skrifttype på dato
-      description: 'Denne skriftypen vil bli brukt på dag og dato.
-       OpenEPaperLink har ppb.ttf og rbm.ttf bygd inn.
-       Vil du ha en annen skrifttype, legg den i /media/fonts i HA,
-       og spesifiser f.eks: /media/fonts/Bahnschrift.ttf
-        '
-      default: ppb.ttf                      
+        icon: {}                            
 mode: restart
 variables:
   posten_entity: !input posten
@@ -110,6 +102,10 @@ variables:
   papiravfall_state: '{{ states[papiravfall_entity].attributes.days_to_pickup }}'
   glass_metall_entity: !input glass_metall
   glass_metall_state: '{{ states[glass_metall_entity].attributes.days_to_pickup }}'
+
+  language_month_no: ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
+            "Juli", "August", "September", "Oktober", "November", "Desember"]
+  language_day_no: ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"]
 trigger:
 - platform: time
   at: !input time
@@ -137,31 +133,29 @@ action:
             + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
             == 0 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 112
           size: 16
           anchor: mm
           color: black
         - type: text
-          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
-            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+          value: '{% set days = language_day_no %} {{ days[now().weekday()] }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 22
           size: 45
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
-            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+          value: '{% set months = language_month_no %} {%
             set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
             + '' '' + month  }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 70
           size: 45
@@ -205,24 +199,22 @@ action:
           anchor: mm
           color: black
         - type: text
-          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
-            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+          value: '{% set days = language_day_no %} {{ days[now().weekday()] }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 22
           size: 45
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
-            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+          value: '{% set months = language_month_no %} {%
             set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
             + '' '' + month  }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 70
           size: 45
@@ -252,24 +244,22 @@ action:
         rotate: 0
         payload:
         - type: text
-          value: '{% set days = [''Mandag'', ''Tirsdag'', ''Onsdag'', ''Torsdag'',
-            ''Fredag'', ''Lørdag'', ''Søndag''] %} {{ days[now().weekday()] }}
+          value: '{% set days = language_day_no %} {{ days[now().weekday()] }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 25
           size: 45
           color: red
           anchor: mm
         - type: text
-          value: '{% set months = ["Januar", "Februar", "Mars", "April", "Mai", "Juni",
-            "Juli", "August", "September", "Oktober", "November", "Desember"] %} {%
+          value: '{% set months = language_month_no %} {%
             set month = months[now().strftime(''%m'') | int -1] %}   {{ now().strftime(''%d'')
             + '' '' + month  }}
 
             '
-          font: !input font_date
+          font: ppb.ttf
           x: 148
           y: 80
           size: 45
