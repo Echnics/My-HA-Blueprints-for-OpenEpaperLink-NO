@@ -11,9 +11,9 @@ blueprint:
     time:
       name: Tid
       description: Tiden automasjonen skal oppdatere. Standard er satt til 01:00.
-      default: '01:00:00'
+      default: 01:00:00
       selector:
-        time: {}  
+        time: {}
     tag_target:
       name: OpenEpaperLink Tag
       description: Velg ditt OpenEpaperLink Tag
@@ -82,6 +82,13 @@ blueprint:
           domain:
           - binary_sensor
           multiple: false
+    postenicon:
+      name: Posten Icon
+      description: Velg et annet posten icon.
+      default: mdi:email-fast-outline     
+      name: Posten
+      selector:
+        icon: {}                     
 mode: restart
 variables:
   posten_entity: !input posten
@@ -154,7 +161,7 @@ action:
           color: black
           anchor: mm
         - type: icon
-          value: email-fast-outline
+          value: !input postenicon
           x: 5
           y: 5
           size: 40
@@ -215,7 +222,7 @@ action:
           color: black
           anchor: mm
         - type: icon
-          value: email-fast-outline
+          value: !input postenicon
           x: 5
           y: 5
           size: 40
@@ -262,7 +269,7 @@ action:
           color: black
           anchor: mm
         - type: icon
-          value: email-fast-outline
+          value: !input postenicon
           x: 5
           y: 5
           size: 40
