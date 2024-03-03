@@ -142,13 +142,13 @@ action:
         payload:
         - type: text
           value: "{% set msg = \"Idag\" %} {% set delim = \": \"%}  {% if restavfall_state
-            == 0 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
+            == 0 %} {% set msg = msg + delim + \"Rest\" %} {% set delim = \",
             \" %}  {% endif %} {% if papiravfall_state == 0 %}  {% set msg = msg +
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
             == 0 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
             %} {% endif %} {% if glass_metall_state == 0 %} {% set msg = msg + delim
             + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
-            == 0 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
+            == 0 %} {% set msg = msg + delim + \"Mat\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
           font: ppb.ttf
           x: 148
@@ -199,14 +199,14 @@ action:
         rotate: 0
         payload:
         - type: text
-          value: "{% set msg = \"Imorgen\" %} {% set delim = \": \"%}  {% if restavfall_state
-            == 1 %} {% set msg = msg + delim + \"Restavfall\" %} {% set delim = \",
-            \" %}  {% endif %} {% if papiravfall_state == 1 %}  {% set msg = msg +
+          value: "{% set msg = \"Idag\" %} {% set delim = \": \"%}  {% if restavfall_state
+            == 0 %} {% set msg = msg + delim + \"Rest\" %} {% set delim = \",
+            \" %}  {% endif %} {% if papiravfall_state == 0 %}  {% set msg = msg +
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
-            == 1 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
-            %} {% endif %} {% if glass_metall_state == 1 %} {% set msg = msg + delim
+            == 0 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
+            %} {% endif %} {% if glass_metall_state == 0 %} {% set msg = msg + delim
             + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
-            == 1 %} {% set msg = msg + delim + \"Matavfall\" %} {% set delim = \",
+            == 0 %} {% set msg = msg + delim + \"Mat\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
           font: ppb.ttf
           x: 148
