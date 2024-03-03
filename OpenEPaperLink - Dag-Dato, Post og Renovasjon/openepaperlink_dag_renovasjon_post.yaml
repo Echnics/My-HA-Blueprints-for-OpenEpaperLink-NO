@@ -147,7 +147,7 @@ action:
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
             == 0 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
             %} {% endif %} {% if glass_metall_state == 0 %} {% set msg = msg + delim
-            + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
+            + \"Glass&Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
             == 0 %} {% set msg = msg + delim + \"Mat\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
           font: ppb.ttf
@@ -205,7 +205,7 @@ action:
             delim + \"Papir\" %} {% set delim = \", \" %}  {% endif %}   {% if plastavfall_state
             == 0 %}  {% set msg = msg + delim + \"Plast\" %} {% set delim = \", \"
             %} {% endif %} {% if glass_metall_state == 0 %} {% set msg = msg + delim
-            + \"Glass-Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
+            + \"Glass&Metall\" %} {% set delim = \", \" %} {% endif %} {% if matavfall_state
             == 0 %} {% set msg = msg + delim + \"Mat\" %} {% set delim = \",
             \" %} {% endif %} {{ msg }}    \n"
           font: ppb.ttf
