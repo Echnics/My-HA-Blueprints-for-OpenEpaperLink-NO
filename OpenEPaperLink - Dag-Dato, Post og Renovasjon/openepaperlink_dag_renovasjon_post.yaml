@@ -6,7 +6,8 @@ blueprint:
     noe.\n Husk å sjekke at default valgte entiter stemmer med dine egne!!!\n\n Håper
     du liker denne blueprint  \U0001F642\n\n [Echnics](https://github.com/Echnics)\U0001F642\n"
   domain: automation
-  source_url: https://github.com/Echnics/My-HA-Blueprints-for-OpenEpaperLink-NO/blob/main/OpenEPaperLink%20-%20Dag-Dato%2C%20Post%20og%20Renovasjon/openepaperlink_dag_renovasjon_post.yaml
+  source_url: https://github.com/Echnics/My-HA-Blueprints-for-OpenEpaperLink-NO/blob/main/OpenEPaperLink
+    - Dag-Dato, Post og Renovasjon/openepaperlink_dag_renovasjon_post.yaml
   input:
     time:
       name: Tid
@@ -209,7 +210,7 @@ action:
         payload:
         - type: text
           value: >
-                    {% set msg = "I morgen" %} {% set delim = ": "%} 
+                    {% set msg = "I dag" %} {% set delim = ": "%} 
                     {% if restavfall_state == 1 %}
                     {% set msg = msg + delim + "Restavfall" %} {% set delim = ", " %} 
                     {% endif %}
