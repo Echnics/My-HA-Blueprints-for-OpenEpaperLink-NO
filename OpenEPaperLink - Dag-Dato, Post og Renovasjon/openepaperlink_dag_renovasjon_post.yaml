@@ -210,7 +210,7 @@ action:
         payload:
         - type: text
           value: >
-                    {% set msg = "I dag" %} {% set delim = ": "%} 
+                    {% set msg = "I morgen" %} {% set delim = ": "%} 
                     {% if restavfall_state == 1 %}
                     {% set msg = msg + delim + "Restavfall" %} {% set delim = ", " %} 
                     {% endif %}
